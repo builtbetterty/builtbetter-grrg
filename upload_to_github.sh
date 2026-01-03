@@ -38,3 +38,5 @@ echo "   1. Go to: https://github.com/builtbetterty/builtbetter-/settings/pages"
 echo "   2. Select 'main' branch"
 echo "   3. Click 'Save'"
 
+
+
