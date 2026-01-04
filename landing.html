@@ -8,6 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Calendly inline widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <style>
         /* --- RESET & VARIABLES --- */
@@ -69,6 +73,18 @@
         .btn:hover {
             color: var(--black); /* Text turns black on hover */
             box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+        }
+        
+        .btn-primary {
+            background: var(--neon);
+            color: var(--black);
+            border: 2px solid var(--neon);
+        }
+        
+        .btn-primary:hover {
+            background: white;
+            color: var(--black);
+            transform: translateY(-2px);
         }
 
         /* --- HERO SECTION --- */
@@ -192,10 +208,37 @@
         }
         input:focus, select:focus { outline: none; border-color: var(--neon); }
 
+        /* --- CALENDLY EMBED --- */
+        .calendly-container {
+            display: none;
+            min-height: 700px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .calendly-container.active {
+            display: block;
+        }
+        
+        .form-container {
+            transition: opacity 0.3s ease;
+        }
+        
+        .form-container.hidden {
+            display: none;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .video-box { height: 250px; }
+            .calendly-container {
+                min-height: 600px;
+            }
+            .calendly-inline-widget {
+                min-width: 100% !important;
+                height: 600px !important;
+            }
         }
     </style>
 </head>
@@ -209,7 +252,10 @@
             <i class="fas fa-play-circle"></i>
         </div>
 
-        <a href="#booking" class="btn">Apply For Access</a>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="#booking" class="btn">Apply For Access</a>
+            <a href="https://calendly.com/trainedbyty/discovery-call" target="_blank" class="btn btn-primary">Book Discovery Call</a>
+        </div>
     </section>
 
     <section class="app-section">
@@ -257,60 +303,86 @@
     <section id="booking" class="booking-section">
         <div style="text-align:center; margin-bottom:40px;">
             <h2>Application Portal</h2>
-            <p style="color:#888;">Secure your spot on the team.</p>
+            <p style="color:#888;">Fill out your details and schedule your discovery call.</p>
         </div>
 
         <div class="booking-box">
-            <form id="appForm">
-                <div class="form-row">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="Your Name" required>
-                </div>
-                <div class="form-row">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="email@address.com" required>
-                </div>
-                <div class="form-row">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="+44 7000 000 000" required>
-                </div>
-                <div class="form-row">
-                    <label>Date of Birth</label>
-                    <input type="date" required>
-                </div>
-                <div class="form-row">
-                    <label>Employment Status</label>
-                    <select required>
-                        <option value="">Select Status...</option>
-                        <option value="employed">Employed</option>
-                        <option value="self">Self-Employed</option>
-                        <option value="student">Student</option>
-                    </select>
-                </div>
-                
-                <button type="button" class="btn" style="width:100%; text-align:center;" onclick="submitForm()">
-                    Proceed to Payment
-                </button>
-            </form>
+            <div class="form-container" id="formContainer">
+                <form id="appForm">
+                    <div class="form-row">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Email Address</label>
+                        <input type="email" id="email" placeholder="email@address.com" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+44 7000 000 000" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Employment Status</label>
+                        <select id="employment" required>
+                            <option value="">Select Status...</option>
+                            <option value="employed">Employed</option>
+                            <option value="self">Self-Employed</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="btn" style="width:100%; text-align:center;" onclick="showCalendly()">
+                        Book Discovery Call
+                    </button>
+                </form>
+            </div>
+            
+            <div class="calendly-container" id="calendlyContainer">
+                <!-- Calendly inline widget begin -->
+                <div class="calendly-inline-widget" 
+                     data-url="https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1" 
+                     style="min-width:320px;height:700px;"></div>
+                <!-- Calendly inline widget end -->
+            </div>
         </div>
     </section>
 
     <script>
-        function submitForm() {
+        function showCalendly() {
             var form = document.getElementById('appForm');
             if(form.checkValidity()) {
-                // Change button text to simulate loading
-                var btn = document.querySelector('.booking-box .btn');
-                btn.innerHTML = 'Processing...';
+                // Store form data (optional - for future use)
+                var formData = {
+                    name: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    dob: document.getElementById('dob').value,
+                    employment: document.getElementById('employment').value
+                };
                 
+                // Store in sessionStorage for potential use
+                sessionStorage.setItem('applicationData', JSON.stringify(formData));
+                
+                // Hide the form
+                document.getElementById('formContainer').classList.add('hidden');
+                
+                // Show the Calendly embed
+                var calendlyContainer = document.getElementById('calendlyContainer');
+                calendlyContainer.classList.add('active');
+                
+                // Scroll to Calendly widget smoothly
                 setTimeout(function() {
-                    // Redirect logic here
-                    alert("Redirecting to Calendly/Stripe...");
-                }, 1000);
+                    calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             } else {
                 alert("Please fill out all fields.");
             }
         }
+        
     </script>
 
 </body>
