@@ -25,21 +25,38 @@
         .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; }
         .logo span { color: var(--primary); }
         
-        .nav-links { display: flex; align-items: center; }
+        .nav-links { display: flex; align-items: center; flex-wrap: wrap; }
         .nav-links a { margin-left: 30px; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); }
         .nav-links a:hover { color: var(--primary); }
         
         /* NEW: Special Link for the Sub-Website */
         .landing-link {
-            border: 1px solid var(--primary);
-            padding: 8px 15px;
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
             border-radius: 4px;
             color: var(--primary) !important;
+            font-weight: 800 !important;
+            background: rgba(0, 230, 118, 0.1);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
         }
-        .landing-link:hover { background: var(--primary); color: black !important; }
+        .landing-link:hover { 
+            background: var(--primary); 
+            color: black !important; 
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.6);
+            transform: translateY(-2px);
+        }
 
         .cta-btn { background: var(--primary); color: black; padding: 10px 25px; border-radius: 4px; font-weight: 800; margin-left: 30px; }
         .cta-btn:hover { background: white; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; flex-wrap: wrap; }
+            .nav-links { margin-top: 10px; width: 100%; justify-content: center; }
+            .nav-links a { margin: 5px 10px; font-size: 0.85rem; }
+            .landing-link { margin: 10px auto !important; display: block; text-align: center; }
+            .cta-btn { margin-left: 0; margin-top: 10px; }
+        }
 
         /* --- HERO --- */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1950'); background-size: cover; background-position: center; }
@@ -81,7 +98,10 @@
         <div>
             <h1>BUILT<br><span>BETTER</span></h1>
             <p>The gap between who you are and who you want to be is a plan. We provide the plan.</p>
-            <a href="calculator.html" class="cta-btn" style="padding: 15px 40px; font-size: 1.1rem; margin-left:0;">Calculate Potential</a>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <a href="calculator.html" class="cta-btn" style="padding: 15px 40px; font-size: 1.1rem; margin-left:0;">Calculate Potential</a>
+                <a href="landing.html" class="landing-link" style="padding: 15px 40px; font-size: 1.1rem; margin-left:0;">View Landing Page Demo</a>
+            </div>
         </div>
     </header>
 
