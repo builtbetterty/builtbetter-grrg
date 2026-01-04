@@ -801,6 +801,16 @@
     </section>
 
     <script>
+        // Check if user has access (completed modal)
+        window.addEventListener('DOMContentLoaded', function() {
+            const accessData = sessionStorage.getItem('deeperDiveAccess');
+            if (!accessData) {
+                // Redirect back to landing page if no access
+                alert('Please complete the access form first.');
+                window.location.href = 'landing.html';
+            }
+        });
+        
         function handleSubmit(event) {
             event.preventDefault();
             

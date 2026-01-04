@@ -440,6 +440,163 @@
         }
 
         /* --- RESPONSIVE --- */
+        /* --- MODAL POPUP --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #111;
+            border: 2px solid var(--neon);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(57, 255, 20, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--neon);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .modal-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .modal-header p {
+            color: #888;
+            font-size: 0.95rem;
+        }
+        
+        .modal-form .form-row {
+            margin-bottom: 20px;
+        }
+        
+        .modal-form label {
+            display: block;
+            color: var(--neon);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .modal-form input {
+            width: 100%;
+            padding: 15px;
+            background: black;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .modal-form input:focus {
+            outline: none;
+            border-color: var(--neon);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+        
+        .modal-submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--neon);
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 4px;
+        }
+        
+        .modal-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--neon);
+            z-index: -1;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: skewX(-20deg);
+        }
+        
+        .modal-submit-btn:hover::before {
+            left: 0;
+            transform: skewX(0deg);
+        }
+        
+        .modal-submit-btn:hover {
+            color: var(--black);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+        }
+        
+        .modal-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .video-box { height: 250px; }
@@ -449,6 +606,14 @@
             .calendly-inline-widget {
                 min-width: 100% !important;
                 height: 600px !important;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -465,7 +630,7 @@
 
         <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
             <a href="#booking" class="btn">Apply For Access</a>
-            <a href="deeperdive.html" class="btn btn-primary btn-deeper-dive" data-progress="0%"><span>Deeper Dive? 👀</span></a>
+            <a href="#" class="btn btn-primary btn-deeper-dive" onclick="event.preventDefault(); showDeeperDiveModal(); return false;"><span>Deeper Dive? 👀</span></a>
         </div>
     </section>
 
@@ -926,7 +1091,96 @@
                 });
             }
         });
+        
+        // Deeper Dive Modal Functions
+        function showDeeperDiveModal() {
+            const modal = document.getElementById('deeperDiveModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeDeeperDiveModal() {
+            const modal = document.getElementById('deeperDiveModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function handleDeeperDiveSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('modalName').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
+            const phone = document.getElementById('modalPhone').value.trim();
+            
+            // Validate
+            if (!name || !email || !phone) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Store in sessionStorage
+            sessionStorage.setItem('deeperDiveAccess', JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                timestamp: new Date().toISOString()
+            }));
+            
+            // Close modal and redirect
+            closeDeeperDiveModal();
+            window.location.href = 'deeperdive.html';
+        }
+        
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('deeperDiveModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeDeeperDiveModal();
+                    }
+                });
+            }
+        });
     </script>
+
+    <!-- Deeper Dive Access Modal -->
+    <div id="deeperDiveModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDeeperDiveModal()">&times;</button>
+            
+            <div class="modal-header">
+                <h2>Access <span style="color:var(--neon)">Required</span></h2>
+                <p>Enter your details to continue to the Deep Dive</p>
+            </div>
+            
+            <form class="modal-form" id="deeperDiveAccessForm" onsubmit="handleDeeperDiveSubmit(event)">
+                <div class="form-row">
+                    <label for="modalName">Full Name</label>
+                    <input type="text" id="modalName" name="name" placeholder="Your Name" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="modalEmail">Email Address</label>
+                    <input type="email" id="modalEmail" name="email" placeholder="email@address.com" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="modalPhone">Phone Number</label>
+                    <input type="tel" id="modalPhone" name="phone" placeholder="+44 7000 000 000" required>
+                </div>
+                
+                <button type="submit" class="modal-submit-btn">Continue to Deep Dive</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
