@@ -153,6 +153,186 @@
             border-radius: 8px;
             border: 1px solid #333;
         }
+        
+        /* --- PERSONAL REFLECTION SECTION --- */
+        .reflection-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border-top: 3px solid var(--neon);
+            position: relative;
+        }
+        
+        .reflection-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .reflection-container {
+            max-width: 950px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .reflection-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .reflection-header h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .reflection-header p {
+            color: #aaa;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .reflection-form {
+            background: rgba(17, 17, 17, 0.8);
+            padding: 60px 50px;
+            border-radius: 12px;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .question-group {
+            margin-bottom: 40px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .question-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .question-label {
+            display: block;
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-family: 'Open Sans', sans-serif;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        
+        .question-label strong {
+            color: var(--neon);
+        }
+        
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .radio-option:hover,
+        .checkbox-option:hover {
+            background: rgba(57, 255, 20, 0.05);
+            border-color: rgba(57, 255, 20, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--neon);
+            flex-shrink: 0;
+        }
+        
+        .radio-option label,
+        .checkbox-option label {
+            color: #ddd;
+            font-size: 0.95rem;
+            cursor: pointer;
+            flex: 1;
+            text-transform: none;
+            font-weight: 400;
+            margin: 0;
+        }
+        
+        .reflection-textarea {
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            min-height: 120px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        .reflection-textarea:focus {
+            outline: none;
+            border-color: var(--neon);
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+        
+        .reflection-submit-btn {
+            width: 100%;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, var(--neon) 0%, #2ecc40 100%);
+            color: var(--black);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 40px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .reflection-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(57, 255, 20, 0.4);
+            background: linear-gradient(135deg, #2ecc40 0%, var(--neon) 100%);
+        }
+        
+        .reflection-submit-btn:active {
+            transform: translateY(-1px);
+        }
 
         .form-header {
             text-align: center;
@@ -262,18 +442,34 @@
                 font-size: 2.5rem;
             }
 
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            .form-header h2 {
-                font-size: 2rem;
-            }
-
-            .video-container {
-                margin-bottom: 40px;
-            }
+        .form-container {
+            padding: 30px 20px;
         }
+
+        .form-header h2 {
+            font-size: 2rem;
+        }
+
+        .video-container {
+            margin-bottom: 40px;
+        }
+        
+        .reflection-section {
+            padding: 60px 20px;
+        }
+        
+        .reflection-header h2 {
+            font-size: 2rem;
+        }
+        
+        .reflection-form {
+            padding: 40px 25px;
+        }
+        
+        .question-label {
+            font-size: 1rem;
+        }
+    }
     </style>
 </head>
 <body>
@@ -342,6 +538,144 @@
         </div>
     </section>
 
+    <section class="reflection-section">
+        <div class="reflection-container">
+            <div class="reflection-header">
+                <h2>Personal Reflection</h2>
+                <p>Understanding your journey requires honesty. These questions help us understand the deeper layers of your story. Your answers are completely confidential and help us tailor the right approach for you.</p>
+            </div>
+            
+            <form id="reflectionForm" class="reflection-form" onsubmit="handleReflectionSubmit(event)">
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Have you experienced a troublesome childhood?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="childhood-yes" name="troublesomeChildhood" value="yes" required>
+                            <label for="childhood-yes">Yes, I've experienced significant challenges during my childhood</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="childhood-some" name="troublesomeChildhood" value="some">
+                            <label for="childhood-some">Some difficult experiences, but nothing extreme</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="childhood-no" name="troublesomeChildhood" value="no">
+                            <label for="childhood-no">No, my childhood was relatively stable</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="childhood-prefer" name="troublesomeChildhood" value="prefer">
+                            <label for="childhood-prefer">I prefer not to answer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Have you ever experienced trauma in your life?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="trauma-yes" name="trauma" value="yes" required>
+                            <label for="trauma-yes">Yes, I've experienced significant trauma</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trauma-moderate" name="trauma" value="moderate">
+                            <label for="trauma-moderate">Some traumatic experiences that still affect me</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trauma-minor" name="trauma" value="minor">
+                            <label for="trauma-minor">Minor traumatic events, but I've mostly processed them</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trauma-no" name="trauma" value="no">
+                            <label for="trauma-no">No significant trauma that I'm aware of</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Do you sometimes not understand why you do things, but you want to change that habit?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="habits-often" name="unexplainedHabits" value="often" required>
+                            <label for="habits-often">Yes, often. I feel like I'm on autopilot and don't understand my own patterns</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="habits-sometimes" name="unexplainedHabits" value="sometimes">
+                            <label for="habits-sometimes">Sometimes. There are behaviors I'd like to change but don't fully understand</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="habits-rarely" name="unexplainedHabits" value="rarely">
+                            <label for="habits-rarely">Rarely. I generally understand why I do the things I do</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="habits-no" name="unexplainedHabits" value="no">
+                            <label for="habits-no">No, I understand my motivations and patterns well</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>What emotional patterns do you notice in yourself? (Select all that apply)</strong>
+                    </label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-perfectionism" name="emotionalPatterns" value="perfectionism">
+                            <label for="pattern-perfectionism">Perfectionism - I'm never satisfied with my results</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-self-sabotage" name="emotionalPatterns" value="self-sabotage">
+                            <label for="pattern-self-sabotage">Self-sabotage - I start strong but always seem to derail myself</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-procrastination" name="emotionalPatterns" value="procrastination">
+                            <label for="pattern-procrastination">Procrastination - I know what to do but struggle to take action</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-all-or-nothing" name="emotionalPatterns" value="all-or-nothing">
+                            <label for="pattern-all-or-nothing">All-or-nothing thinking - If I can't do it perfectly, I don't do it at all</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-emotional-eating" name="emotionalPatterns" value="emotional-eating">
+                            <label for="pattern-emotional-eating">Emotional eating or using food/exercise as a coping mechanism</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pattern-fear-of-failure" name="emotionalPatterns" value="fear-of-failure">
+                            <label for="pattern-fear-of-failure">Fear of failure or success - both feel uncomfortable</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label" for="self-awareness">
+                        <strong>What do you think holds you back most from achieving your goals?</strong>
+                    </label>
+                    <textarea id="self-awareness" name="selfAwareness" class="reflection-textarea" placeholder="Be honest with yourself. Is it fear? Past experiences? Lack of confidence? Self-doubt? Write whatever comes to mind..." required></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label" for="relationship-with-body">
+                        <strong>How would you describe your relationship with your body?</strong>
+                    </label>
+                    <textarea id="relationship-with-body" name="relationshipWithBody" class="reflection-textarea" placeholder="Your relationship with your body affects everything. How do you feel about it? When you look in the mirror, what thoughts come up?..." required></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label" for="deepest-fear">
+                        <strong>What's your deepest fear about changing? About transforming?</strong>
+                    </label>
+                    <textarea id="deepest-fear" name="deepestFear" class="reflection-textarea" placeholder="Sometimes we're afraid of change even when we want it. What scares you about actually becoming who you want to be?..." required></textarea>
+                </div>
+
+                <button type="submit" class="reflection-submit-btn">Share Your Truth</button>
+            </form>
+        </div>
+    </section>
+
     <script>
         function handleSubmit(event) {
             event.preventDefault();
@@ -375,6 +709,45 @@
             
             // Here you can add code to send data to your backend/API
             // Example: fetch('/api/submit-form', { method: 'POST', body: JSON.stringify(formData) })
+        }
+        
+        function handleReflectionSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const form = document.getElementById('reflectionForm');
+            const formData = new FormData(form);
+            
+            const reflectionData = {
+                troublesomeChildhood: formData.get('troublesomeChildhood'),
+                trauma: formData.get('trauma'),
+                unexplainedHabits: formData.get('unexplainedHabits'),
+                emotionalPatterns: formData.getAll('emotionalPatterns'),
+                selfAwareness: formData.get('selfAwareness'),
+                relationshipWithBody: formData.get('relationshipWithBody'),
+                deepestFear: formData.get('deepestFear')
+            };
+            
+            // Store in sessionStorage
+            sessionStorage.setItem('reflectionFormData', JSON.stringify(reflectionData));
+            
+            // Show success message
+            const submitBtn = document.querySelector('.reflection-submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Thank You for Your Honesty ✓';
+            submitBtn.style.background = 'linear-gradient(135deg, #2ecc40 0%, var(--neon) 100%)';
+            
+            // Scroll to top of form
+            submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Reset after 4 seconds
+            setTimeout(function() {
+                submitBtn.textContent = originalText;
+                // Form stays submitted - don't reset it
+            }, 4000);
+            
+            // Here you can add code to send data to your backend/API
+            // Example: fetch('/api/submit-reflection', { method: 'POST', body: JSON.stringify(reflectionData) })
         }
     </script>
 
