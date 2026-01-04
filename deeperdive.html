@@ -620,6 +620,130 @@
 
                 <div class="question-group">
                     <label class="question-label">
+                        <strong>Have you experienced traumatic relationships?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="relationships-yes" name="traumaticRelationships" value="yes" required>
+                            <label for="relationships-yes">Yes, I've been in relationships that were emotionally or physically harmful</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="relationships-some" name="traumaticRelationships" value="some">
+                            <label for="relationships-some">Some difficult relationships that impacted me significantly</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="relationships-minor" name="traumaticRelationships" value="minor">
+                            <label for="relationships-minor">Minor relationship challenges, but nothing traumatic</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="relationships-no" name="traumaticRelationships" value="no">
+                            <label for="relationships-no">No, my relationships have been relatively healthy</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Have you experienced betrayal?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="betrayal-significant" name="betrayal" value="significant" required>
+                            <label for="betrayal-significant">Yes, significant betrayal that deeply affected me</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="betrayal-moderate" name="betrayal" value="moderate">
+                            <label for="betrayal-moderate">Some experiences of betrayal that still impact me</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="betrayal-minor" name="betrayal" value="minor">
+                            <label for="betrayal-minor">Minor instances, but I've mostly moved past them</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="betrayal-no" name="betrayal" value="no">
+                            <label for="betrayal-no">No significant experiences of betrayal</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Have you experienced being significantly overweight or struggling with your weight?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="weight-yes" name="overweight" value="yes" required>
+                            <label for="weight-yes">Yes, I've been significantly overweight and struggled with it for years</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="weight-current" name="overweight" value="current">
+                            <label for="weight-current">I'm currently struggling with being significantly overweight</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="weight-past" name="overweight" value="past">
+                            <label for="weight-past">I was in the past, but have made progress since</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="weight-some" name="overweight" value="some">
+                            <label for="weight-some">Some weight struggles, but not significantly overweight</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="weight-no" name="overweight" value="no">
+                            <label for="weight-no">No, weight hasn't been a significant struggle for me</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Have you experienced being bullied?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="bullied-severe" name="bullied" value="severe" required>
+                            <label for="bullied-severe">Yes, severe bullying that had a lasting impact on me</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="bullied-moderate" name="bullied" value="moderate">
+                            <label for="bullied-moderate">Yes, moderate bullying that affected my confidence and self-image</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="bullied-minor" name="bullied" value="minor">
+                            <label for="bullied-minor">Some minor experiences, but I've mostly moved past them</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="bullied-no" name="bullied" value="no">
+                            <label for="bullied-no">No significant experiences with bullying</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
+                        <strong>Do you struggle with self-worth or feeling like you're not enough?</strong>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="selfworth-often" name="selfWorth" value="often" required>
+                            <label for="selfworth-often">Yes, constantly. I rarely feel like I'm enough</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="selfworth-sometimes" name="selfWorth" value="sometimes">
+                            <label for="selfworth-sometimes">Sometimes. It comes and goes depending on the situation</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="selfworth-rarely" name="selfWorth" value="rarely">
+                            <label for="selfworth-rarely">Rarely. I generally feel good about myself</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="selfworth-no" name="selfWorth" value="no">
+                            <label for="selfworth-no">No, I have a healthy sense of self-worth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">
                         <strong>What emotional patterns do you notice in yourself? (Select all that apply)</strong>
                     </label>
                     <div class="checkbox-group">
@@ -721,6 +845,11 @@
             const reflectionData = {
                 troublesomeChildhood: formData.get('troublesomeChildhood'),
                 trauma: formData.get('trauma'),
+                traumaticRelationships: formData.get('traumaticRelationships'),
+                betrayal: formData.get('betrayal'),
+                overweight: formData.get('overweight'),
+                bullied: formData.get('bullied'),
+                selfWorth: formData.get('selfWorth'),
                 unexplainedHabits: formData.get('unexplainedHabits'),
                 emotionalPatterns: formData.getAll('emotionalPatterns'),
                 selfAwareness: formData.get('selfAwareness'),
@@ -731,20 +860,80 @@
             // Store in sessionStorage
             sessionStorage.setItem('reflectionFormData', JSON.stringify(reflectionData));
             
-            // Show success message
-            const submitBtn = document.querySelector('.reflection-submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Thank You for Your Honesty ✓';
-            submitBtn.style.background = 'linear-gradient(135deg, #2ecc40 0%, var(--neon) 100%)';
+            // Calculate qualification (60%+ alignment)
+            let qualifyingCount = 0;
+            const totalQuestions = 10;
             
-            // Scroll to top of form
-            submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Qualifying answers (indicating challenges/struggles)
+            const qualifyingValues = {
+                troublesomeChildhood: ['yes', 'some'],
+                trauma: ['yes', 'moderate'],
+                traumaticRelationships: ['yes', 'some'],
+                betrayal: ['significant', 'moderate'],
+                overweight: ['yes', 'current'],
+                bullied: ['severe', 'moderate'],
+                selfWorth: ['often', 'sometimes'],
+                unexplainedHabits: ['often', 'sometimes']
+            };
             
-            // Reset after 4 seconds
-            setTimeout(function() {
-                submitBtn.textContent = originalText;
-                // Form stays submitted - don't reset it
-            }, 4000);
+            // Check radio questions (8 questions)
+            if (qualifyingValues.troublesomeChildhood.includes(reflectionData.troublesomeChildhood)) qualifyingCount++;
+            if (qualifyingValues.trauma.includes(reflectionData.trauma)) qualifyingCount++;
+            if (qualifyingValues.traumaticRelationships.includes(reflectionData.traumaticRelationships)) qualifyingCount++;
+            if (qualifyingValues.betrayal.includes(reflectionData.betrayal)) qualifyingCount++;
+            if (qualifyingValues.overweight.includes(reflectionData.overweight)) qualifyingCount++;
+            if (qualifyingValues.bullied.includes(reflectionData.bullied)) qualifyingCount++;
+            if (qualifyingValues.selfWorth.includes(reflectionData.selfWorth)) qualifyingCount++;
+            if (qualifyingValues.unexplainedHabits.includes(reflectionData.unexplainedHabits)) qualifyingCount++;
+            
+            // Check emotional patterns (1 question - 2+ selected counts as qualify)
+            if (reflectionData.emotionalPatterns.length >= 2) qualifyingCount++;
+            
+            // Check textareas (1 question - if any have substantial content)
+            const textareaAnswers = [
+                reflectionData.selfAwareness,
+                reflectionData.relationshipWithBody,
+                reflectionData.deepestFear
+            ];
+            const hasSubstantialTextarea = textareaAnswers.some(answer => answer && answer.trim().length > 50);
+            if (hasSubstantialTextarea) qualifyingCount++;
+            
+            const qualificationPercentage = (qualifyingCount / totalQuestions) * 100;
+            
+            // Store qualification status
+            sessionStorage.setItem('qualificationStatus', JSON.stringify({
+                qualified: qualificationPercentage >= 60,
+                percentage: qualificationPercentage,
+                qualifyingCount: qualifyingCount,
+                totalQuestions: totalQuestions
+            }));
+            
+            // Redirect if qualified (60%+)
+            if (qualificationPercentage >= 60) {
+                // Show loading message
+                const submitBtn = document.querySelector('.reflection-submit-btn');
+                submitBtn.textContent = 'Processing...';
+                submitBtn.disabled = true;
+                
+                // Redirect to qualified page
+                setTimeout(function() {
+                    window.location.href = 'qualified.html';
+                }, 800);
+            } else {
+                // Show message if not qualified
+                const submitBtn = document.querySelector('.reflection-submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Thank You for Your Honesty ✓';
+                submitBtn.style.background = 'linear-gradient(135deg, #2ecc40 0%, var(--neon) 100%)';
+                
+                // Scroll to top of form
+                submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset after 3 seconds
+                setTimeout(function() {
+                    submitBtn.textContent = originalText;
+                }, 3000);
+            }
             
             // Here you can add code to send data to your backend/API
             // Example: fetch('/api/submit-reflection', { method: 'POST', body: JSON.stringify(reflectionData) })
