@@ -140,6 +140,134 @@
 
         /* --- APP MOCKUPS (CSS PHONES) --- */
         .app-section { padding: 80px 20px; background: #111; text-align: center; }
+
+        /* --- TESTIMONIALS SECTION --- */
+        .testimonials-section {
+            padding: 100px 20px;
+            background: var(--black);
+            border-top: 1px solid #222;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .testimonials-title h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonials-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon);
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.2);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon), #2ecc40);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-info h4 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 5px;
+            text-transform: none;
+        }
+
+        .testimonial-info p {
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: none;
+        }
+
+        .testimonial-transform {
+            background: rgba(57, 255, 20, 0.1);
+            border-left: 3px solid var(--neon);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .testimonial-transform h5 {
+            color: var(--neon);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .testimonial-transform p {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-transform: none;
+        }
+
+        .testimonial-quote {
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            text-transform: none;
+        }
+
+        /* Testimonials Responsive */
+        @media (max-width: 968px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonials-title h2 {
+                font-size: 2rem;
+            }
+        }
         
         .phones-container {
             display: flex;
@@ -312,6 +440,161 @@
                 <div class="screen-card">
                     <h4>Protein Target</h4>
                     <div style="background:#333; height:5px; width:100%; margin-top:5px; border-radius:5px;"><div style="width:80%; background:var(--neon); height:100%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="testimonials-title">
+                <h2>Real <span style="color:var(--neon)">Transformations</span></h2>
+                <p>See what's possible when you commit to the process</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">JM</div>
+                        <div class="testimonial-info">
+                            <h4>James Mitchell</h4>
+                            <p>12 Weeks • Down 42lbs</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Weight Loss Transformation</h5>
+                        <p>From 248lbs to 206lbs. Lost 8 inches off waist.</p>
+                    </div>
+                    <p class="testimonial-quote">"I was stuck at 248lbs for 3 years. Built Better gave me a plan that actually worked. The macro calculator was a game-changer. I'm now the strongest and leanest I've ever been."</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Martinez</h4>
+                            <p>16 Weeks • +18lbs Muscle</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Muscle Building</h5>
+                        <p>Gained 18lbs lean muscle. Bench press increased 85lbs.</p>
+                    </div>
+                    <p class="testimonial-quote">"The 5-day hypertrophy split pushed me harder than I thought possible. My strength gains were insane. Finally filled out my frame the way I always wanted."</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">DC</div>
+                        <div class="testimonial-info">
+                            <h4>David Chen</h4>
+                            <p>20 Weeks • Body Recomp</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Body Recomposition</h5>
+                        <p>Lost 28lbs fat, gained 12lbs muscle. Dropped from 22% to 12% body fat.</p>
+                    </div>
+                    <p class="testimonial-quote">"At 42, I thought my best days were behind me. This program proved me wrong. I'm in better shape now than I was at 25."</p>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">RT</div>
+                        <div class="testimonial-info">
+                            <h4>Rachel Thompson</h4>
+                            <p>14 Weeks • Down 35lbs</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Weight Loss & Strength</h5>
+                        <p>Lost 35lbs while increasing all lifts. Deadlift went from 135lbs to 245lbs.</p>
+                    </div>
+                    <p class="testimonial-quote">"I'd tried every diet. Nothing worked until I got my macros dialed in. The nutrition coaching changed everything. Stronger AND leaner - didn't know that was possible."</p>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">MK</div>
+                        <div class="testimonial-info">
+                            <h4>Marcus King</h4>
+                            <p>18 Weeks • +25lbs Muscle</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Mass Building</h5>
+                        <p>Went from 165lbs to 190lbs. Added 4 inches to chest and arms.</p>
+                    </div>
+                    <p class="testimonial-quote">"I was stuck as 'skinny-fat' for years. The structured bulking protocol finally helped me pack on real muscle. The app made tracking effortless."</p>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">LP</div>
+                        <div class="testimonial-info">
+                            <h4>Lisa Patel</h4>
+                            <p>16 Weeks • Down 38lbs</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Fat Loss Transformation</h5>
+                        <p>Dropped from 38% to 24% body fat. Lost 6 dress sizes.</p>
+                    </div>
+                    <p class="testimonial-quote">"Post-pregnancy weight wouldn't budge. The structured approach and accountability changed everything. I feel like myself again, but better."</p>
+                </div>
+
+                <!-- Testimonial 7 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">TW</div>
+                        <div class="testimonial-info">
+                            <h4>Tom Williams</h4>
+                            <p>12 Weeks • Athletic Performance</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Performance Enhancement</h5>
+                        <p>Improved 5K time by 4 minutes. Added 60lbs to squat.</p>
+                    </div>
+                    <p class="testimonial-quote">"Training for my first marathon while building strength seemed impossible. The hybrid program made it work. PR'd everything."</p>
+                </div>
+
+                <!-- Testimonial 8 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">AN</div>
+                        <div class="testimonial-info">
+                            <h4>Amanda Nguyen</h4>
+                            <p>20 Weeks • Complete Transformation</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Total Body Transformation</h5>
+                        <p>Lost 45lbs, gained significant muscle. Body fat dropped from 35% to 18%.</p>
+                    </div>
+                    <p class="testimonial-quote">"This wasn't just a diet or workout plan. It was a complete lifestyle reset. I have more energy now than I did in my 20s."</p>
+                </div>
+
+                <!-- Testimonial 9 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">RB</div>
+                        <div class="testimonial-info">
+                            <h4>Ryan Brown</h4>
+                            <p>14 Weeks • Strength Focus</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-transform">
+                        <h5>Strength Development</h5>
+                        <p>Total strength increased 65%. Bench 185lbs to 315lbs. Deadlift 225lbs to 405lbs.</p>
+                    </div>
+                    <p class="testimonial-quote">"Finally broke through my plateau. The progressive overload programming was exactly what I needed. Numbers I thought were impossible are now warm-up sets."</p>
                 </div>
             </div>
         </div>
