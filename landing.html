@@ -360,8 +360,7 @@
             
             <div class="calendly-container" id="calendlyContainer">
                 <!-- Calendly inline widget begin -->
-                <div class="calendly-inline-widget" 
-                     data-url="https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1" 
+                <div id="calendly-widget" class="calendly-inline-widget" 
                      style="min-width:320px;height:700px;"></div>
                 <!-- Calendly inline widget end -->
             </div>
@@ -394,21 +393,30 @@
                 
                 // Show the Calendly embed
                 var calendlyContainer = document.getElementById('calendlyContainer');
+                var widgetDiv = document.getElementById('calendly-widget');
                 calendlyContainer.classList.add('active');
                 
-                // Force Calendly to reload/initialize the widget
-                // The widget should auto-initialize from data-url, but we'll ensure it happens
-                if (typeof Calendly !== 'undefined') {
-                    // Remove and re-add the widget to force initialization
-                    var widgetDiv = calendlyContainer.querySelector('.calendly-inline-widget');
-                    if (widgetDiv) {
-                        // Trigger Calendly to initialize
-                        Calendly.initInlineWidget({
-                            url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
-                            parentElement: widgetDiv
-                        });
+                // Initialize Calendly widget when it becomes visible
+                function initCalendlyWidget() {
+                    if (typeof Calendly !== 'undefined' && Calendly.initInlineWidget) {
+                        try {
+                            Calendly.initInlineWidget({
+                                url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                                parentElement: widgetDiv
+                            });
+                        } catch(e) {
+                            console.log('Calendly initialization error:', e);
+                            // Retry after a delay
+                            setTimeout(initCalendlyWidget, 500);
+                        }
+                    } else {
+                        // Calendly script not loaded yet, wait and retry
+                        setTimeout(initCalendlyWidget, 200);
                     }
                 }
+                
+                // Start initialization
+                initCalendlyWidget();
                 
                 // Scroll to Calendly widget smoothly
                 setTimeout(function() {
