@@ -214,10 +214,27 @@
             min-height: 700px;
             width: 100%;
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
         }
         
         .calendly-container.active {
             display: block;
+        }
+        
+        .calendly-inline-widget {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: hidden;
+        }
+        
+        /* Prevent Calendly from redirecting */
+        .calendly-container iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
         }
         
         .form-container {
@@ -254,7 +271,7 @@
 
         <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
             <a href="#booking" class="btn">Apply For Access</a>
-            <a href="https://calendly.com/trainedbyty/discovery-call" target="_blank" class="btn btn-primary">Book Discovery Call</a>
+            <a href="#booking" class="btn btn-primary" onclick="event.preventDefault(); scrollToBooking(); return false;">Book Discovery Call</a>
         </div>
     </section>
 
@@ -304,6 +321,9 @@
         <div style="text-align:center; margin-bottom:40px;">
             <h2>Application Portal</h2>
             <p style="color:#888;">Fill out your details and schedule your discovery call.</p>
+            <button onclick="skipToCalendly()" class="btn" style="margin-top: 20px; padding: 10px 30px; font-size: 0.9rem; background: transparent; border: 1px solid var(--neon);">
+                Skip Form & Book Directly
+            </button>
         </div>
 
         <div class="booking-box">
@@ -343,8 +363,7 @@
             
             <div class="calendly-container" id="calendlyContainer">
                 <!-- Calendly inline widget begin -->
-                <div class="calendly-inline-widget" 
-                     data-url="https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1" 
+                <div id="calendly-widget" class="calendly-inline-widget" 
                      style="min-width:320px;height:700px;"></div>
                 <!-- Calendly inline widget end -->
             </div>
@@ -352,6 +371,49 @@
     </section>
 
     <script>
+        function skipToCalendly() {
+            // Hide form immediately
+            document.getElementById('formContainer').classList.add('hidden');
+            
+            // Show Calendly embed
+            var calendlyContainer = document.getElementById('calendlyContainer');
+            var calendlyWidget = document.getElementById('calendly-widget');
+            calendlyContainer.classList.add('active');
+            
+            // Initialize Calendly widget when shown
+            if (typeof Calendly !== 'undefined') {
+                Calendly.initInlineWidget({
+                    url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                    parentElement: calendlyWidget
+                });
+            } else {
+                // If Calendly not loaded yet, wait and retry
+                setTimeout(function() {
+                    if (typeof Calendly !== 'undefined') {
+                        Calendly.initInlineWidget({
+                            url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                            parentElement: calendlyWidget
+                        });
+                    }
+                }, 500);
+            }
+            
+            // Scroll to Calendly widget
+            setTimeout(function() {
+                calendlyContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+        
+        function scrollToBooking() {
+            // Scroll to booking section
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Show Calendly directly without form
+            setTimeout(function() {
+                skipToCalendly();
+            }, 500);
+        }
+        
         function showCalendly() {
             var form = document.getElementById('appForm');
             if(form.checkValidity()) {
@@ -372,7 +434,26 @@
                 
                 // Show the Calendly embed
                 var calendlyContainer = document.getElementById('calendlyContainer');
+                var calendlyWidget = document.getElementById('calendly-widget');
                 calendlyContainer.classList.add('active');
+                
+                // Initialize Calendly widget when shown
+                if (typeof Calendly !== 'undefined') {
+                    Calendly.initInlineWidget({
+                        url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                        parentElement: calendlyWidget
+                    });
+                } else {
+                    // If Calendly not loaded yet, wait and retry
+                    setTimeout(function() {
+                        if (typeof Calendly !== 'undefined') {
+                            Calendly.initInlineWidget({
+                                url: 'https://calendly.com/trainedbyty/discovery-call?hide_event_type_details=1&hide_gdpr_banner=1',
+                                parentElement: calendlyWidget
+                            });
+                        }
+                    }, 500);
+                }
                 
                 // Scroll to Calendly widget smoothly
                 setTimeout(function() {
@@ -383,6 +464,13 @@
             }
         }
         
+        // Initialize Calendly when page loads
+        window.addEventListener('load', function() {
+            // Pre-load Calendly widget (hidden)
+            if (typeof Calendly !== 'undefined') {
+                // Widget will auto-initialize from data-url attribute
+            }
+        });
     </script>
 
 </body>
