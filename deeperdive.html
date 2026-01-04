@@ -860,7 +860,7 @@
             // Store in sessionStorage
             sessionStorage.setItem('reflectionFormData', JSON.stringify(reflectionData));
             
-            // Calculate qualification (60%+ alignment)
+            // Calculate qualification (30%+ alignment)
             let qualifyingCount = 0;
             const totalQuestions = 10;
             
@@ -902,14 +902,14 @@
             
             // Store qualification status
             sessionStorage.setItem('qualificationStatus', JSON.stringify({
-                qualified: qualificationPercentage >= 60,
+                qualified: qualificationPercentage >= 30,
                 percentage: qualificationPercentage,
                 qualifyingCount: qualifyingCount,
                 totalQuestions: totalQuestions
             }));
             
-            // Redirect if qualified (60%+)
-            if (qualificationPercentage >= 60) {
+            // Redirect if qualified (30%+)
+            if (qualificationPercentage >= 30) {
                 // Show loading message
                 const submitBtn = document.querySelector('.reflection-submit-btn');
                 submitBtn.textContent = 'Processing...';
