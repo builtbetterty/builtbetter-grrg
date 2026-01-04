@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUILT BETTER | Total Reconstruction</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --neon: #39FF14;
+            --black: #050505;
+            --dark-grey: #111111;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+        
+        /* --- THE SHUTTLE BUTTON ANIMATION --- */
+        .btn {
+            position: relative;
+            display: inline-block;
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--neon);
+            padding: 20px 50px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            overflow: hidden;
+            transition: 0.3s ease;
+            cursor: pointer;
+            z-index: 1; /* Ensures text stays on top */
+        }
+
+        /* The sliding shuttle background */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: -100%; /* Starts off screen to the left */
+            width: 100%; 
+            height: 100%;
+            background: var(--neon);
+            z-index: -1; /* Puts it behind the text */
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1); /* Snappy animation */
+            transform: skewX(-20deg);
+        }
+
+        .btn:hover::before {
+            left: 0;
+            transform: skewX(0deg);
+        }
+
+        .btn:hover {
+            color: var(--black); /* Text turns black on hover */
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            /* Background Image Fallback */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1950');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span { color: var(--neon); }
+
+        .hero p {
+            color: #ddd;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* --- VIDEO HOLDER --- */
+        .video-box {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .video-box:hover { border-color: var(--neon); }
+        .video-box i { font-size: 4rem; color: white; opacity: 0.7; transition: 0.3s; }
+        .video-box:hover i { color: var(--neon); transform: scale(1.1); opacity: 1; }
+
+        /* --- APP MOCKUPS (CSS PHONES) --- */
+        .app-section { padding: 80px 20px; background: #111; text-align: center; }
+        
+        .phones-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .phone {
+            width: 280px;
+            height: 550px;
+            background: black;
+            border: 10px solid #222;
+            border-radius: 40px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* The "Notch" */
+        .phone::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 120px; height: 25px;
+            background: #222;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .screen-header { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; margin-top: 15px; display: flex; justify-content: space-between; font-size: 0.8rem; color: #888; }
+        .screen-card { background: #222; padding: 15px; border-radius: 8px; margin-bottom: 10px; text-align: left; }
+        .screen-card h4 { color: white; font-size: 0.9rem; margin-bottom: 5px; }
+        .screen-card p { color: #666; font-size: 0.7rem; }
+        .highlight-card { border: 1px solid var(--neon); }
+
+        /* --- BOOKING FORM --- */
+        .booking-section {
+            padding: 80px 20px;
+            background: var(--black);
+            border-top: 2px solid var(--neon);
+        }
+
+        .booking-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .form-row { margin-bottom: 20px; }
+        label { display: block; color: var(--neon); font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: black;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input:focus, select:focus { outline: none; border-color: var(--neon); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .video-box { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>BUILT<br><span>BETTER</span></h1>
+        <p>The 12-Week Total Life Reconstruction Protocol.</p>
+
+        <div class="video-box" onclick="alert('Place your video embed code here')">
+            <i class="fas fa-play-circle"></i>
+        </div>
+
+        <a href="#booking" class="btn">Apply For Access</a>
+    </section>
+
+    <section class="app-section">
+        <h2>Professional Systems</h2>
+        <p style="color:#666;">Powered by Everfit. Your coach in your pocket.</p>
+
+        <div class="phones-container">
+            <div class="phone">
+                <div class="screen-header">
+                    <span>WORKOUTS</span>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+                <div class="screen-card highlight-card">
+                    <h4 style="color:var(--neon)">Today: Push Day</h4>
+                    <p>4 Exercises • 45 Mins</p>
+                </div>
+                <div class="screen-card">
+                    <h4>Tomorrow: Pull Day</h4>
+                    <p>Scheduled 6:00 AM</p>
+                </div>
+                <div class="screen-card">
+                    <h4>Legs (Hypertrophy)</h4>
+                    <p>Completed ✅</p>
+                </div>
+            </div>
+
+            <div class="phone">
+                <div class="screen-header">
+                    <span>NUTRITION</span>
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div style="text-align:center; margin: 20px 0;">
+                    <div style="width:120px; height:120px; border-radius:50%; border:6px solid var(--neon); margin:0 auto; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.5rem;">
+                        2,400<br><span style="font-size:0.8rem; font-weight:400;">kcal</span>
+                    </div>
+                </div>
+                <div class="screen-card">
+                    <h4>Protein Target</h4>
+                    <div style="background:#333; height:5px; width:100%; margin-top:5px; border-radius:5px;"><div style="width:80%; background:var(--neon); height:100%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="booking-section">
+        <div style="text-align:center; margin-bottom:40px;">
+            <h2>Application Portal</h2>
+            <p style="color:#888;">Secure your spot on the team.</p>
+        </div>
+
+        <div class="booking-box">
+            <form id="appForm">
+                <div class="form-row">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-row">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="email@address.com" required>
+                </div>
+                <div class="form-row">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+44 7000 000 000" required>
+                </div>
+                <div class="form-row">
+                    <label>Date of Birth</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-row">
+                    <label>Employment Status</label>
+                    <select required>
+                        <option value="">Select Status...</option>
+                        <option value="employed">Employed</option>
+                        <option value="self">Self-Employed</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="btn" style="width:100%; text-align:center;" onclick="submitForm()">
+                    Proceed to Payment
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function submitForm() {
+            var form = document.getElementById('appForm');
+            if(form.checkValidity()) {
+                // Change button text to simulate loading
+                var btn = document.querySelector('.booking-box .btn');
+                btn.innerHTML = 'Processing...';
+                
+                setTimeout(function() {
+                    // Redirect logic here
+                    alert("Redirecting to Calendly/Stripe...");
+                }, 1000);
+            } else {
+                alert("Please fill out all fields.");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
