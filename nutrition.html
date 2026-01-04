@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nutrition plans for every lifestyle. High protein, carb cycling, and plant-based options. BUILT BETTER.">
+    <title>Nutrition Plans | BUILT BETTER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/64a9c77f5b.js" crossorigin="anonymous"></script>
+    <style>
+        :root { 
+            --primary: #00E676; 
+            --dark: #0a0a0a; 
+            --card: #161616; 
+            --text: #fff; 
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: var(--dark); 
+            color: var(--text); 
+            font-family: 'Open Sans', sans-serif; 
+            min-height: 100vh;
+        }
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 25px 50px; 
+            background: rgba(10,10,10,0.95); 
+            border-bottom: 1px solid #222; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+            text-decoration: none; 
+            color: white; 
+            text-transform: uppercase;
+        }
+        .logo span { color: var(--primary); }
+        .back-link { 
+            color: #aaa; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--primary); }
+        
+        .header { 
+            text-align: center; 
+            padding: 80px 20px 40px; 
+        }
+        .header h1 { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 3rem; 
+            text-transform: uppercase; 
+            margin-bottom: 20px;
+        }
+        .header p { 
+            color: #888; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .program-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto 100px; 
+            padding: 0 20px; 
+        }
+        .p-card { 
+            background: var(--card); 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            transition: all 0.3s;
+        }
+        .p-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.2);
+        }
+        .p-info { 
+            padding: 30px; 
+        }
+        .p-info h3 { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1.5rem; 
+            margin-bottom: 10px; 
+            color: var(--primary); 
+            text-transform: uppercase;
+        }
+        .p-info h3 i {
+            margin-right: 10px;
+        }
+        .p-info p { 
+            color: #aaa; 
+            font-size: 0.9rem; 
+            margin-bottom: 20px; 
+            line-height: 1.6;
+        }
+        .p-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-align: center;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+        .p-btn:hover {
+            background: var(--primary);
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px; }
+            .header h1 { font-size: 2rem; }
+            .program-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">BUILT<span>BETTER</span></a>
+        <a href="index.html" class="back-link">Back Home</a>
+    </nav>
+
+    <div class="header">
+        <h1>Nutrition Systems</h1>
+        <p>You can't out-train a bad diet. Choose the fuel that fits your lifestyle.</p>
+    </div>
+
+    <div class="program-grid">
+        <div class="p-card">
+            <div class="p-info">
+                <h3><i class="fas fa-drumstick-bite"></i> High Protein / Low Carb</h3>
+                <p>The rapid fat loss solution. We focus on satiety and muscle retention while shedding water weight and body fat.</p>
+                <a href="#" class="p-btn">View Plan</a>
+            </div>
+        </div>
+        <div class="p-card">
+            <div class="p-info">
+                <h3><i class="fas fa-sync-alt"></i> Carb Cycling</h3>
+                <p>Eat more on training days, less on rest days. The advanced method for building lean muscle without adding fat.</p>
+                <a href="#" class="p-btn">View Plan</a>
+            </div>
+        </div>
+        <div class="p-card">
+            <div class="p-info">
+                <h3><i class="fas fa-leaf"></i> Plant-Based Power</h3>
+                <p>Who says vegans can't build muscle? A complete amino-acid profile plan for the ethical athlete.</p>
+                <a href="#" class="p-btn">View Plan</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
