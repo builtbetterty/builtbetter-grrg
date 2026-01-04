@@ -86,6 +86,72 @@
             color: var(--black);
             transform: translateY(-2px);
         }
+        
+        /* --- DEEPER DIVE LOADING ANIMATION --- */
+        .btn-deeper-dive {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Progress bar that fills on hover */
+        .btn-deeper-dive::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--neon);
+            z-index: 1;
+            transition: width 0s;
+        }
+        
+        .btn-deeper-dive:hover::before {
+            animation: progressBar 2s ease-in-out forwards;
+        }
+        
+        @keyframes progressBar {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        
+        /* Percentage counter overlay */
+        .btn-deeper-dive::after {
+            content: '0%';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--black);
+            font-weight: 900;
+            font-size: 1.1rem;
+            opacity: 0;
+            z-index: 2;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        
+        .btn-deeper-dive.loading::after {
+            opacity: 1;
+        }
+        
+        .btn-deeper-dive:hover {
+            color: var(--black);
+        }
+        
+        .btn-deeper-dive span {
+            position: relative;
+            z-index: 3;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-deeper-dive:hover span {
+            opacity: 0;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -399,7 +465,7 @@
 
         <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
             <a href="#booking" class="btn">Apply For Access</a>
-            <a href="deeperdive.html" class="btn btn-primary">Deeper Dive? 👀</a>
+            <a href="deeperdive.html" class="btn btn-primary btn-deeper-dive" data-progress="0%"><span>Deeper Dive? 👀</span></a>
         </div>
     </section>
 
@@ -803,6 +869,63 @@
                 alert("Please fill out all fields.");
             }
         }
+        
+        // Deeper Dive Button Loading Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const deeperDiveBtn = document.querySelector('.btn-deeper-dive');
+            if (deeperDiveBtn) {
+                let progressInterval;
+                let currentProgress = 0;
+                
+                deeperDiveBtn.addEventListener('mouseenter', function() {
+                    this.classList.add('loading');
+                    currentProgress = 0;
+                    const afterElement = window.getComputedStyle(this, '::after');
+                    
+                    progressInterval = setInterval(() => {
+                        currentProgress += 2;
+                        if (currentProgress > 100) {
+                            currentProgress = 100;
+                            clearInterval(progressInterval);
+                        }
+                        
+                        // Update the percentage text
+                        const style = document.createElement('style');
+                        style.textContent = `
+                            .btn-deeper-dive.loading::after {
+                                content: '${currentProgress}%';
+                            }
+                        `;
+                        document.head.appendChild(style);
+                        
+                        // Remove old style tags to prevent accumulation
+                        const oldStyles = document.querySelectorAll('style[data-deeper-dive]');
+                        oldStyles.forEach(s => s.remove());
+                        style.setAttribute('data-deeper-dive', 'true');
+                    }, 40); // 40ms * 50 = 2000ms (2 seconds total)
+                });
+                
+                deeperDiveBtn.addEventListener('mouseleave', function() {
+                    this.classList.remove('loading');
+                    clearInterval(progressInterval);
+                    currentProgress = 0;
+                    
+                    // Reset the percentage
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        .btn-deeper-dive::after {
+                            content: '0%';
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    // Remove old style tags
+                    const oldStyles = document.querySelectorAll('style[data-deeper-dive]');
+                    oldStyles.forEach(s => s.remove());
+                    style.setAttribute('data-deeper-dive', 'true');
+                });
+            }
+        });
     </script>
 
 </body>
