@@ -495,49 +495,6 @@
         </div>
     </section>
 
-    <section class="form-section">
-        <div class="form-container">
-            <div class="form-header">
-                <h2>Get <span style="color:var(--neon)">Started</span></h2>
-                <p>Fill out the form below to begin your journey.</p>
-            </div>
-
-            <form id="deeperDiveForm" onsubmit="handleSubmit(event)">
-                <div class="form-row">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Your Name" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="email@address.com" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+44 7000 000 000" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="goals">What are your main goals?</label>
-                    <textarea id="goals" name="goals" placeholder="Tell us about your fitness and transformation goals..." required></textarea>
-                </div>
-
-                <div class="form-row">
-                    <label for="experience">Current Experience Level</label>
-                    <select id="experience" name="experience" required>
-                        <option value="">Select your level...</option>
-                        <option value="beginner">Beginner - Just starting out</option>
-                        <option value="intermediate">Intermediate - Some experience</option>
-                        <option value="advanced">Advanced - Experienced lifter</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </form>
-        </div>
-    </section>
-
     <section class="reflection-section">
         <div class="reflection-container">
             <div class="reflection-header">
@@ -810,40 +767,6 @@
                 window.location.href = 'landing.html';
             }
         });
-        
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                goals: document.getElementById('goals').value,
-                experience: document.getElementById('experience').value
-            };
-            
-            // Store in sessionStorage (you can modify this to send to your backend)
-            sessionStorage.setItem('deeperDiveFormData', JSON.stringify(formData));
-            
-            // Show success message
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitted! ✓';
-            submitBtn.style.background = 'var(--neon)';
-            submitBtn.style.color = 'var(--black)';
-            
-            // Reset after 3 seconds
-            setTimeout(function() {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = 'transparent';
-                submitBtn.style.color = 'var(--white)';
-                document.getElementById('deeperDiveForm').reset();
-            }, 3000);
-            
-            // Here you can add code to send data to your backend/API
-            // Example: fetch('/api/submit-form', { method: 'POST', body: JSON.stringify(formData) })
-        }
         
         function handleReflectionSubmit(event) {
             event.preventDefault();
