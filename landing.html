@@ -981,59 +981,51 @@
             document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
-        // GoHighLevel API Integration
+        // GoHighLevel Webhook Integration
         function sendToGoHighLevel(formData) {
-            // IMPORTANT: Replace these with your actual GoHighLevel credentials
-            const GHL_API_KEY = 'YOUR_GHL_API_KEY'; // Your GoHighLevel API Key
-            const GHL_LOCATION_ID = 'YOUR_LOCATION_ID'; // Your GoHighLevel Location ID
+            // GoHighLevel webhook URL
+            const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/qnvZEbXVFq6KUFRXaMdQ/webhook-trigger/82fd8cd9-3ac8-4881-a23c-447c5aae3df1';
             
-            // GoHighLevel API endpoint for creating/updating contacts
-            const GHL_API_URL = `https://services.leadconnectorhq.com/contacts/`;
+            // Prepare contact data for GoHighLevel webhook
+            // Split name into first and last name
+            const nameParts = formData.name.trim().split(' ');
+            const firstName = nameParts[0] || formData.name;
+            const lastName = nameParts.slice(1).join(' ') || '';
             
-            // Prepare contact data for GoHighLevel
-            const contactData = {
-                firstName: formData.name.split(' ')[0] || formData.name,
-                lastName: formData.name.split(' ').slice(1).join(' ') || '',
+            const webhookData = {
+                firstName: firstName,
+                lastName: lastName,
                 email: formData.email,
                 phone: formData.phone,
-                customFields: [
-                    {
-                        key: 'date_of_birth',
-                        field_value: formData.dob
-                    },
-                    {
-                        key: 'employment_status',
-                        field_value: formData.employment
-                    },
-                    {
-                        key: 'source',
-                        field_value: 'Built Better Application Portal'
-                    }
-                ],
+                dateOfBirth: formData.dob,
+                employmentStatus: formData.employment,
                 source: 'Built Better Application Portal',
-                tags: ['Application Portal', 'Discovery Call']
+                formName: 'Application Portal',
+                timestamp: new Date().toISOString()
             };
             
-            // Send data to GoHighLevel
-            fetch(GHL_API_URL, {
+            // Send data to GoHighLevel webhook
+            fetch(GHL_WEBHOOK_URL, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${GHL_API_KEY}`,
-                    'Version': '2021-07-28',
-                    'Content-Type': 'application/json',
-                    'Location-Id': GHL_LOCATION_ID
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(contactData)
+                body: JSON.stringify(webhookData)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP ${response.status}: ${text}`);
+                    });
+                }
+                return response.json();
+            })
             .then(data => {
-                console.log('Contact sent to GoHighLevel:', data);
-                // Optionally store the contact ID
-                sessionStorage.setItem('ghlContactId', data.contact?.id || '');
+                console.log('Form data sent to GoHighLevel webhook successfully:', data);
             })
             .catch(error => {
-                console.error('Error sending to GoHighLevel:', error);
-                // Continue even if API call fails - don't block user flow
+                console.error('Error sending to GoHighLevel webhook:', error);
+                // Continue even if webhook call fails - don't block user flow
             });
         }
         
