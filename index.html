@@ -56,6 +56,11 @@
             .nav-links a { margin: 5px 10px; font-size: 0.85rem; }
             .landing-link { margin: 10px auto !important; display: block; text-align: center; }
             .cta-btn { margin-left: 0; margin-top: 10px; }
+            .section { padding: 60px 20px; }
+            .form-section { padding: 60px 20px; }
+            .form-container-wrapper h2 { font-size: 2rem; }
+            .form-embed-container { padding: 20px; }
+            .form-embed-container iframe { height: 600px; }
         }
 
         /* --- HERO --- */
@@ -75,6 +80,52 @@
         .trans-img { height: 250px; background: #333; }
         .trans-img img { width: 100%; height: 100%; object-fit: cover; }
         .trans-content { padding: 25px; }
+
+        /* --- FORM SECTION --- */
+        .form-section {
+            padding: 100px 50px;
+            background: var(--card-bg);
+            border-top: 1px solid #222;
+        }
+        
+        .form-container-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .form-container-wrapper h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .form-container-wrapper h2 span {
+            color: var(--primary);
+        }
+        
+        .form-container-wrapper p {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+        
+        .form-embed-container {
+            width: 100%;
+            margin: 0 auto;
+            background: #111;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 230, 118, 0.1);
+        }
+        
+        .form-embed-container iframe {
+            width: 100%;
+            height: 790px;
+            border: none;
+            border-radius: 3px;
+        }
 
         /* --- FOOTER --- */
         footer { background: #050505; padding: 50px; text-align: center; border-top: 1px solid #222; color: #555; }
@@ -134,7 +185,36 @@
         </div>
     </section>
 
+    <section class="form-section">
+        <div class="form-container-wrapper">
+            <h2>Get <span>Started</span></h2>
+            <p>Fill out the form below to begin your transformation journey.</p>
+            
+            <div class="form-embed-container">
+                <iframe
+                    src="https://links.thecoachesblueprint.co.uk/widget/form/hVVuy1YBOEAZzTZREIcc"
+                    style="width:100%;height:100%;border:none;border-radius:3px"
+                    id="inline-hVVuy1YBOEAZzTZREIcc" 
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Form 0"
+                    data-height="790"
+                    data-layout-iframe-id="inline-hVVuy1YBOEAZzTZREIcc"
+                    data-form-id="hVVuy1YBOEAZzTZREIcc"
+                    title="Form 0">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
     <footer>&copy; 2026 Built Better Systems. All Rights Reserved.</footer>
+
+    <script src="https://links.thecoachesblueprint.co.uk/js/form_embed.js"></script>
 
 </body>
 </html>
