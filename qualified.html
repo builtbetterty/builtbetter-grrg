@@ -206,6 +206,49 @@
             font-weight: 600;
         }
 
+        /* --- FORM CONTAINER --- */
+        .form-section {
+            padding: 80px 20px;
+            background: var(--dark-grey);
+            border-top: 2px solid var(--neon);
+        }
+        
+        .form-container-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .form-container-wrapper h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .form-container-wrapper p {
+            text-align: center;
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+        
+        .form-embed-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #111;
+            border: 2px solid rgba(57, 255, 20, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(57, 255, 20, 0.2);
+        }
+        
+        .form-embed-container iframe {
+            width: 100%;
+            height: 790px;
+            border: none;
+            border-radius: 3px;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             nav {
@@ -231,6 +274,18 @@
 
             .video-placeholder i {
                 font-size: 4rem;
+            }
+            
+            .form-container-wrapper h2 {
+                font-size: 2rem;
+            }
+            
+            .form-embed-container {
+                padding: 20px;
+            }
+            
+            .form-embed-container iframe {
+                height: 600px;
             }
         }
     </style>
@@ -265,6 +320,37 @@
         </div>
     </section>
 
+    <section class="form-section">
+        <div class="form-container-wrapper">
+            <h2>Complete Your <span style="color:var(--neon)">Application</span></h2>
+            <p>Fill out the form below to secure your spot in the Deep Dive Program.</p>
+            
+            <div class="form-embed-container">
+                <iframe
+                    src="https://links.thecoachesblueprint.co.uk/widget/form/hVVuy1YBOEAZzTZREIcc"
+                    style="width:100%;height:100%;border:none;border-radius:3px"
+                    id="inline-hVVuy1YBOEAZzTZREIcc" 
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Form 0"
+                    data-height="790"
+                    data-layout-iframe-id="inline-hVVuy1YBOEAZzTZREIcc"
+                    data-form-id="hVVuy1YBOEAZzTZREIcc"
+                    title="Form 0">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://links.thecoachesblueprint.co.uk/js/form_embed.js"></script>
+
 </body>
 </html>
+
+
 
