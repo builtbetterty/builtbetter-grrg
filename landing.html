@@ -981,10 +981,66 @@
             document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
+        // GoHighLevel API Integration
+        function sendToGoHighLevel(formData) {
+            // IMPORTANT: Replace these with your actual GoHighLevel credentials
+            const GHL_API_KEY = 'YOUR_GHL_API_KEY'; // Your GoHighLevel API Key
+            const GHL_LOCATION_ID = 'YOUR_LOCATION_ID'; // Your GoHighLevel Location ID
+            
+            // GoHighLevel API endpoint for creating/updating contacts
+            const GHL_API_URL = `https://services.leadconnectorhq.com/contacts/`;
+            
+            // Prepare contact data for GoHighLevel
+            const contactData = {
+                firstName: formData.name.split(' ')[0] || formData.name,
+                lastName: formData.name.split(' ').slice(1).join(' ') || '',
+                email: formData.email,
+                phone: formData.phone,
+                customFields: [
+                    {
+                        key: 'date_of_birth',
+                        field_value: formData.dob
+                    },
+                    {
+                        key: 'employment_status',
+                        field_value: formData.employment
+                    },
+                    {
+                        key: 'source',
+                        field_value: 'Built Better Application Portal'
+                    }
+                ],
+                source: 'Built Better Application Portal',
+                tags: ['Application Portal', 'Discovery Call']
+            };
+            
+            // Send data to GoHighLevel
+            fetch(GHL_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${GHL_API_KEY}`,
+                    'Version': '2021-07-28',
+                    'Content-Type': 'application/json',
+                    'Location-Id': GHL_LOCATION_ID
+                },
+                body: JSON.stringify(contactData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Contact sent to GoHighLevel:', data);
+                // Optionally store the contact ID
+                sessionStorage.setItem('ghlContactId', data.contact?.id || '');
+            })
+            .catch(error => {
+                console.error('Error sending to GoHighLevel:', error);
+                // Continue even if API call fails - don't block user flow
+            });
+        }
+        
         function showCalendly() {
             var form = document.getElementById('appForm');
             if(form.checkValidity()) {
-                // Store form data (optional - for future use)
+                // Collect form data
                 var formData = {
                     name: document.getElementById('fullName').value,
                     email: document.getElementById('email').value,
@@ -995,6 +1051,9 @@
                 
                 // Store in sessionStorage for potential use
                 sessionStorage.setItem('applicationData', JSON.stringify(formData));
+                
+                // Send data to GoHighLevel
+                sendToGoHighLevel(formData);
                 
                 // Hide the form
                 document.getElementById('formContainer').classList.add('hidden');
