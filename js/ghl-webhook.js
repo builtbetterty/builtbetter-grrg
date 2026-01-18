@@ -2,6 +2,7 @@
  * GoHighLevel Webhook Integration
  * Shared function to send contact data (name, email, phone) to GoHighLevel webhook
  * Use this function anywhere on the website where forms collect name, email, and phone
+ * Includes duplicate detection to prevent resending the same contact information
  */
 
 function sendToGoHighLevel(formData) {
@@ -12,6 +13,24 @@ function sendToGoHighLevel(formData) {
     if (!formData.name || !formData.email || !formData.phone) {
         console.warn('GoHighLevel webhook: Missing required fields (name, email, phone)');
         return;
+    }
+    
+    // Normalize email and phone for duplicate detection
+    const normalizedEmail = formData.email.trim().toLowerCase();
+    const normalizedPhone = formData.phone.trim().replace(/\s+/g, '').replace(/[^\d+]/g, '');
+    
+    // Create unique identifier from email + phone
+    const contactId = normalizedEmail + '|' + normalizedPhone;
+    
+    // Check for duplicates in localStorage
+    const submittedContacts = JSON.parse(localStorage.getItem('ghlSubmittedContacts') || '[]');
+    
+    if (submittedContacts.includes(contactId)) {
+        console.log('GoHighLevel webhook: Duplicate contact detected, skipping submission:', {
+            email: normalizedEmail,
+            phone: normalizedPhone
+        });
+        return; // Don't send duplicate
     }
     
     // Prepare contact data for GoHighLevel webhook
@@ -53,10 +72,15 @@ function sendToGoHighLevel(formData) {
     })
     .then(data => {
         console.log('Form data sent to GoHighLevel webhook successfully:', data);
+        
+        // Mark as submitted to prevent duplicates
+        submittedContacts.push(contactId);
+        localStorage.setItem('ghlSubmittedContacts', JSON.stringify(submittedContacts));
     })
     .catch(error => {
         console.error('Error sending to GoHighLevel webhook:', error);
         // Continue even if webhook call fails - don't block user flow
+        // Don't mark as submitted if the request failed
     });
 }
 
