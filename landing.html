@@ -981,10 +981,17 @@
             document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
-        // GoHighLevel Webhook Integration
+        // Shared GoHighLevel Webhook Integration Function
+        // This function can be used by any form that collects name, email, and phone
         function sendToGoHighLevel(formData) {
             // GoHighLevel webhook URL
             const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/qnvZEbXVFq6KUFRXaMdQ/webhook-trigger/82fd8cd9-3ac8-4881-a23c-447c5aae3df1';
+            
+            // Ensure we have required fields
+            if (!formData.name || !formData.email || !formData.phone) {
+                console.warn('GoHighLevel webhook: Missing required fields (name, email, phone)');
+                return;
+            }
             
             // Prepare contact data for GoHighLevel webhook
             // Split name into first and last name
@@ -996,13 +1003,16 @@
                 firstName: firstName,
                 lastName: lastName,
                 email: formData.email,
-                phone: formData.phone,
-                dateOfBirth: formData.dob,
-                employmentStatus: formData.employment,
-                source: 'Built Better Application Portal',
-                formName: 'Application Portal',
-                timestamp: new Date().toISOString()
+                phone: formData.phone
             };
+            
+            // Add optional fields if present
+            if (formData.dob) webhookData.dateOfBirth = formData.dob;
+            if (formData.employment) webhookData.employmentStatus = formData.employment;
+            if (formData.source) webhookData.source = formData.source;
+            if (formData.formName) webhookData.formName = formData.formName;
+            
+            webhookData.timestamp = new Date().toISOString();
             
             // Send data to GoHighLevel webhook
             fetch(GHL_WEBHOOK_URL, {
@@ -1044,8 +1054,16 @@
                 // Store in sessionStorage for potential use
                 sessionStorage.setItem('applicationData', JSON.stringify(formData));
                 
-                // Send data to GoHighLevel
-                sendToGoHighLevel(formData);
+                // Send data to GoHighLevel webhook
+                sendToGoHighLevel({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    dob: formData.dob,
+                    employment: formData.employment,
+                    source: 'Built Better Application Portal',
+                    formName: 'Application Portal'
+                });
                 
                 // Hide the form
                 document.getElementById('formContainer').classList.add('hidden');
@@ -1183,6 +1201,15 @@
                 phone: phone,
                 timestamp: new Date().toISOString()
             }));
+            
+            // Send data to GoHighLevel webhook
+            sendToGoHighLevel({
+                name: name,
+                email: email,
+                phone: phone,
+                source: 'Built Better Deeper Dive',
+                formName: 'Deeper Dive Access Modal'
+            });
             
             // Close modal and redirect
             closeDeeperDiveModal();
