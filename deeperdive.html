@@ -758,6 +758,84 @@
     </section>
 
     <script>
+        // Deep Dive Specific GoHighLevel Webhook Integration
+        function sendToGoHighLevelDeepDive(formData) {
+            // Deep Dive specific webhook URL
+            const GHL_DEEPDIVE_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/qnvZEbXVFq6KUFRXaMdQ/webhook-trigger/aa364f39-4e20-40e7-a890-887a0d8c448d';
+            
+            // Ensure we have required fields
+            if (!formData.name || !formData.email || !formData.phone) {
+                console.warn('GoHighLevel Deep Dive webhook: Missing required fields (name, email, phone)');
+                return;
+            }
+            
+            // Normalize email and phone for duplicate detection
+            const normalizedEmail = formData.email.trim().toLowerCase();
+            const normalizedPhone = formData.phone.trim().replace(/\s+/g, '').replace(/[^\d+]/g, '');
+            
+            // Create unique identifier from email + phone
+            const contactId = 'deepdive_' + normalizedEmail + '|' + normalizedPhone;
+            
+            // Check for duplicates in localStorage (separate from main webhook)
+            const submittedContacts = JSON.parse(localStorage.getItem('ghlDeepDiveSubmittedContacts') || '[]');
+            
+            if (submittedContacts.includes(contactId)) {
+                console.log('GoHighLevel Deep Dive webhook: Duplicate contact detected, skipping submission:', {
+                    email: normalizedEmail,
+                    phone: normalizedPhone
+                });
+                return; // Don't send duplicate
+            }
+            
+            // Prepare contact data for GoHighLevel webhook
+            const nameParts = formData.name.trim().split(' ');
+            const firstName = nameParts[0] || formData.name;
+            const lastName = nameParts.slice(1).join(' ') || '';
+            
+            const webhookData = {
+                firstName: firstName,
+                lastName: lastName,
+                email: formData.email,
+                phone: formData.phone
+            };
+            
+            // Add optional fields if present
+            if (formData.dob) webhookData.dateOfBirth = formData.dob;
+            if (formData.employment) webhookData.employmentStatus = formData.employment;
+            if (formData.source) webhookData.source = formData.source;
+            if (formData.formName) webhookData.formName = formData.formName;
+            
+            webhookData.timestamp = new Date().toISOString();
+            
+            // Send data to Deep Dive GoHighLevel webhook
+            fetch(GHL_DEEPDIVE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(webhookData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP ${response.status}: ${text}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Form data sent to GoHighLevel Deep Dive webhook successfully:', data);
+                
+                // Mark as submitted to prevent duplicates
+                submittedContacts.push(contactId);
+                localStorage.setItem('ghlDeepDiveSubmittedContacts', JSON.stringify(submittedContacts));
+            })
+            .catch(error => {
+                console.error('Error sending to GoHighLevel Deep Dive webhook:', error);
+                // Continue even if webhook call fails - don't block user flow
+            });
+        }
+        
         // Check if user has access (completed modal)
         window.addEventListener('DOMContentLoaded', function() {
             const accessData = sessionStorage.getItem('deeperDiveAccess');
@@ -792,6 +870,18 @@
             
             // Store in sessionStorage
             sessionStorage.setItem('reflectionFormData', JSON.stringify(reflectionData));
+            
+            // Send contact info to Deep Dive webhook
+            const accessData = JSON.parse(sessionStorage.getItem('deeperDiveAccess') || '{}');
+            if (accessData.name && accessData.email && accessData.phone) {
+                sendToGoHighLevelDeepDive({
+                    name: accessData.name,
+                    email: accessData.email,
+                    phone: accessData.phone,
+                    source: 'Built Better Deep Dive',
+                    formName: 'Deep Dive Reflection Form'
+                });
+            }
             
             // Calculate qualification (30%+ alignment)
             let qualifyingCount = 0;
